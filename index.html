@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="static/js/jquery.min.js"></script>
+        <script>
+            var magnet;
+            magnet = "magnet:?xt=urn:btih:1EFC3B8E271084B4FE44C20239D1550F62D5E251&dn=01+When+We+Were+Young+mp3&tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&tr=http%3A%2F%2Ftracker.aletorrenty.pl%3A2710%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce&tr=udp%3A%2F%2Feddie4.nl%3A6969%2Fannounce&tr=udp%3A%2F%2F9.rarbg.to%3A2710%2Fannounce&tr=udp%3A%2F%2F9.rarbg.me%3A2710%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fp4p.arenabg.ch%3A1337%2Fannounce&tr=http%3A%2F%2Ftracker.tfile.me%2Fannounce&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337%2Fannounce&tr=http%3A%2F%2Fbigfoot1942.sektori.org%3A6969%2Fannounce&tr=http%3A%2F%2Ftorrent.gresille.org%2Fannounce&tr=http%3A%2F%2Fexplodie.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fopen.demonii.com%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.trackerfix.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce";
+            
+            const hostname = 'http://127.0.0.1';
+            const port = 8080;
+            const key = 'TEST';
+            var magnet = {
+                magnet: magnet,
+                key: key,
+                command: 'start-download'
+            }
+            
+            
+            encode = function(data) {
+                data = encodeURI(JSON.stringify(data));
+                return data;
+            }
+            
+            decode = function(data) {
+                data = JSON.parse(decodeURI(data));
+                return data;
+            }
+            
+            
+            $(document).ready(function(){
+                startDownload(trace,magnet);
+            });
+            
+            startDownload = function(_callback,data){
+                var data = typeof data !== 'undefined' ?  data : null;
+                if(data !== null && typeof data === 'object'){
+                    data = encode(data) ;
+                }else{
+                    data = '';
+                }
+                
+                
+                console.log(data)
+                
+                var _url = hostname + ':' + port;
+                
+                $.ajax({
+                    dataType: 'json',
+                    url: _url,
+                    data:data,
+                    type: 'POST'
+                }).done(function(data){
+                    _callback(data);
+                }).fail(function(err){
+                    console.log(err)
+                });
+                
+            }
+            
+            trace = function(_data){
+                console.log(_data);
+            }
+            
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

@@ -1,0 +1,80 @@
+//-------- General CSS3 styles and fancy stuff
+//-------- Last updated: 2014-04-18 PKE
+
+
+@function calc-average-color($a,$b){
+	$red:	(red($a)+red($b))/2;
+	$green:	(green($a)+green($b))/2;
+	$blue:	(blue($a)+blue($b))/2;
+	$res: rgb($red,$green,$blue);
+	@return($res);
+}
+
+@mixin test($a, $diff){
+	color: calc-average($a,$diff);
+}
+
+@mixin box-sizing {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+@mixin box-shadow($b-shadow-x, $b-shadow-y, $b-shadow-blur, $b-shadow-color) {
+	box-shadow:	$b-shadow-x $b-shadow-y $b-shadow-blur $b-shadow-color;
+	-moz-box-shadow: $b-shadow-x $b-shadow-y $b-shadow-blur $b-shadow-color;
+	-webkit-box-shadow:	$b-shadow-x $b-shadow-y $b-shadow-blur $b-shadow-color;		
+}
+
+@mixin border-radius($b-radius) {
+	border-radius: $b-radius;
+	-webkit-border-radius: $b-radius;	
+	-moz-border-radius: $b-radius;		
+}
+
+@mixin text-shadow($t-shadow-x, $t-shadow-y, $t-shadow-blur, $t-shadow-color) {
+	text-shadow: $t-shadow-x $t-shadow-y $t-shadow-blur $t-shadow-color;
+	-webkit-text-shadow: $t-shadow-x $t-shadow-y $t-shadow-blur $t-shadow-color;
+	-moz-text-shadow: $t-shadow-x $t-shadow-y $t-shadow-blur $t-shadow-color;	
+}
+
+@mixin transition($property) {
+	transition: $property .2s ease;	
+	-webkit-transition: $property .2s ease;
+	-moz-transition: $property .2s ease;
+	-o-transition: $property .2s ease;
+}
+
+@mixin vertical-gradient($v-gradient-top-color, $v-gradient-bottom-color) {
+/* fallback */ 	
+	background-color: $v-gradient-top-color; 
+	background-color: calc-average-color($v-gradient-top-color, $v-gradient-bottom-color);
+/* Safari 4-5, Chrome 1-9 */ 
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($v-gradient-top-color), to($v-gradient-bottom-color));
+/* Safari 5.1, Chrome 10+ */ 
+	background: -webkit-linear-gradient(top, $v-gradient-top-color, $v-gradient-bottom-color); 
+/* Firefox 3.6+ */ 
+	background: -moz-linear-gradient(top, $v-gradient-top-color, $v-gradient-bottom-color); 
+/* IE 10 */ 
+	background: -ms-linear-gradient(top, $v-gradient-top-color, $v-gradient-bottom-color); 
+/* Opera 11.10+ */ 
+	background: -o-linear-gradient(top, $v-gradient-top-color, $v-gradient-bottom-color);	
+/* Default */	
+	background-color: linear-gradient(to bottom,  $v-gradient-top-color 0%,$v-gradient-bottom-color 100%);
+}
+
+@mixin horizontal-gradient($h-gradient-left-color, $h-gradient-right-color) {
+/* fallback */ 
+	background-color: $h-gradient-right-color; 
+	background-color: calc-average-color($v-gradient-top-color, $v-gradient-bottom-color);
+/* Safari 4-5, Chrome 1-9 */ 
+	background: -webkit-gradient(linear, left top, right top, from($h-gradient-left-color), to($h-gradient-right-color)); 
+/* Safari 5.1, Chrome 10+ */ 
+	background: -webkit-linear-gradient(left, $h-gradient-left-color, $h-gradient-right-color); 
+/* Firefox 3.6+ */ 
+	background: -moz-linear-gradient(left, $h-gradient-left-color, $h-gradient-right-color); 
+/* IE 10 */ 
+	background: -ms-linear-gradient(left, $h-gradient-left-color, $h-gradient-right-color); 
+/* Opera 11.10+ */ 
+	background: -o-linear-gradient(left, $h-gradient-left-color, $h-gradient-right-color);	
+}
